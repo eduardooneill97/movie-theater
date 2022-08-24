@@ -17,14 +17,13 @@ public class Customer {
 
         this.name = name;
 
-        }
+    }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (!(o instanceof Customer)) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(name, customer.name) && Objects.equals(id, customer.id);
+        return Objects.equals(id, customer.id);
     }
 
     @Override

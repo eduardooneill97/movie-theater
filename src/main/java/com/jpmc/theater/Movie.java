@@ -10,13 +10,16 @@ public class Movie {
     private String description;
     private Duration runningTime;
     private double ticketPrice;
-    private int specialCode;
+    private MovieCategory movieCategory;
 
-    public Movie(String title, Duration runningTime, double ticketPrice, int specialCode) {
+    public Movie(String title,
+                 Duration runningTime,
+                 double ticketPrice,
+                 MovieCategory category) {
         this.title = title;
         this.runningTime = runningTime;
         this.ticketPrice = ticketPrice;
-        this.specialCode = specialCode;
+        this.movieCategory = category;
     }
 
     public String getTitle() {
@@ -27,49 +30,34 @@ public class Movie {
         return runningTime;
     }
 
+    public MovieCategory getMovieCategory() {
+        return movieCategory;
+    }
+
+    public void setMovieCategory(MovieCategory movieCategory) {
+        this.movieCategory = movieCategory;
+    }
+
     public double getTicketPrice() {
         return ticketPrice;
     }
 
-    public double calculateTicketPrice(Showing showing) {
-        return ticketPrice - getDiscount(showing.getSequenceOfTheDay());
-    }
-
-    private double getDiscount(int showSequence) {
-        double specialDiscount = 0;
-        if (MOVIE_CODE_SPECIAL == specialCode) {
-            specialDiscount = ticketPrice * 0.2;  // 20% discount for special movie
-        }
-
-        double sequenceDiscount = 0;
-        if (showSequence == 1) {
-            sequenceDiscount = 3; // $3 discount for 1st show
-        } else if (showSequence == 2) {
-
-            sequenceDiscount = 2; // $2 discount for 2nd show
-        }
-//        else {
-//            throw new IllegalArgumentException("failed exception");
-//        }
-
-        // biggest discount wins
-        return specialDiscount > sequenceDiscount ? specialDiscount : sequenceDiscount;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Movie)) return false;
         Movie movie = (Movie) o;
-        return Double.compare(movie.ticketPrice, ticketPrice) == 0
-                && Objects.equals(title, movie.title)
+        return Double.compare(
+                movie.ticketPrice, ticketPrice) == 0 &&
+                Objects.equals(title, movie.title)
                 && Objects.equals(description, movie.description)
                 && Objects.equals(runningTime, movie.runningTime)
-                && Objects.equals(specialCode, movie.specialCode);
+                && Objects.equals(movieCategory, movie.movieCategory);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, runningTime, ticketPrice, specialCode);
+        return Objects.hash(title, description, runningTime,
+                ticketPrice,
+                movieCategory);
     }
 }

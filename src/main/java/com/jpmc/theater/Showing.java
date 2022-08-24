@@ -7,6 +7,7 @@ public class Showing {
     private int sequenceOfTheDay;
     private LocalDateTime showStartTime;
 
+
     public Showing(Movie movie, int sequenceOfTheDay, LocalDateTime showStartTime) {
         this.movie = movie;
         this.sequenceOfTheDay = sequenceOfTheDay;
@@ -33,7 +34,4 @@ public class Showing {
         return sequenceOfTheDay;
     }
 
-    private double calculateFee(int audienceCount) {
-        return movie.calculateTicketPrice(this) * audienceCount;
-    }
 }
